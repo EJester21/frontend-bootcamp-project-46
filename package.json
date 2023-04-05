@@ -19,11 +19,16 @@
   "homepage": "https://github.com/EJester21/frontend-bootcamp-project-46#readme",
   "dependencies": {
     "commander": "^10.0.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
   },
   "type": "module",
   "bin": {
     "gendiff": "bin/gendiff.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.37.0"
   }
 }
