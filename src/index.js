@@ -12,11 +12,18 @@ const getFormat = (filepath) => path.extname(filepath).slice(1);
 // Парсеры для поддерживаемых форматов
 const parsers = {
   json: JSON.parse,
-  yml: yaml.safeLoad,
+  yml: yaml.load,
+  yaml: yaml.load,
 };
 
 // Функция для парсинга данных из файла в объект
-const parse = (data, format) => parsers[format](data);
+const parse = (data, format) => {
+    const parser = parsers[format];
+    if (!parser) {
+      throw new Error(`Unknown format: ${format}`);
+    }
+    return parser(data);
+  };
 
 // Функция для сравнения двух объектов
 const gendiff = (filepath1, filepath2) => {
@@ -48,6 +55,8 @@ const gendiff = (filepath1, filepath2) => {
       case 'nested':
         // Рекурсивно вызываем функцию gendiff для обработки вложенных объектов
         return `  ${key}: ${gendiff(obj1[key], obj2[key])}`;
+      case 'unchanged':
+        return `  ${key}: ${oldValue}`;
       default:
         return `  ${key}: ${obj1[key]}`;
     }

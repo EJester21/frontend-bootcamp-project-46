@@ -37,7 +37,7 @@ const diff = (obj1, obj2) => {
     }
 
     // Если значения совпадают, то никаких изменений не произошло
-    return acc;
+    return { ...acc, [key]: {type: 'unchanged', oldValue: val1 } }
   }, {});
 };
 
