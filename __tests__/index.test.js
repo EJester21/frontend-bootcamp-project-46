@@ -15,7 +15,7 @@ test('compares flat JSON files correctly', () => {
 });
 
 test('compares flat YAML/YML files correctly', () => {
-    const filepath1 = getFixturePath('file1.yaml');
+    const filepath1 = getFixturePath('file1.yml');
     const filepath2 = getFixturePath('file2.yaml');
     const expected = readFileSync(getFixturePath('result_yaml.txt'), 'utf-8').trim();
   
