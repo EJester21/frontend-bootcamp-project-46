@@ -1,29 +1,13 @@
 import fs from 'fs';
 import path from 'path';
-import yaml from 'js-yaml';
 import diff from './diff.js';
+import parse from './parsers.js';
 
 // Функция для получения содержимого файла
 const getFileContent = (filepath) => fs.readFileSync(filepath, 'utf-8');
 
 // Функция для получения формата файла
 const getFormat = (filepath) => path.extname(filepath).slice(1);
-
-// Парсеры для поддерживаемых форматов
-const parsers = {
-  json: JSON.parse,
-  yml: yaml.load,
-  yaml: yaml.load,
-};
-
-// Функция для парсинга данных из файла в объект
-const parse = (data, format) => {
-    const parser = parsers[format];
-    if (!parser) {
-      throw new Error(`Unknown format: ${format}`);
-    }
-    return parser(data);
-  };
 
 // Функция для сравнения двух объектов
 const gendiff = (filepath1, filepath2) => {
