@@ -13,7 +13,7 @@ const stringify = (value, depth) => {
   return `{\n${lines.join('\n')}\n${getIndent(depth)}}`;
 };
 
-const formatDiff = (diffObj) => {
+const stylish = (diffObj) => {
   const iter = (obj, depth = 0) => {
     const lines = Object.entries(obj)
       .map(([key, { type, oldValue, newValue, value, children }]) => {
@@ -41,4 +41,4 @@ const formatDiff = (diffObj) => {
   return iter(diffObj);
 };
 
-export default formatDiff;
+export default stylish;

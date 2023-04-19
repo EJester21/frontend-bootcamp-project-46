@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import diff from './diff.js';
 import parse from './parsers.js';
-import formatDiff from './formatters/stylish.js';
+import getFormatter from './formatters/index.js';
 
 // Функция для получения содержимого файла
 const getFileContent = (filepath) => fs.readFileSync(filepath, 'utf-8');
@@ -11,7 +11,7 @@ const getFileContent = (filepath) => fs.readFileSync(filepath, 'utf-8');
 const getFormat = (filepath) => path.extname(filepath).slice(1);
 
 // Функция для сравнения двух объектов
-const gendiff = (filepath1, filepath2) => {
+const gendiff = (filepath1, filepath2, options) => {
   // Получаем содержимое файлов
   const data1 = getFileContent(filepath1);
   const data2 = getFileContent(filepath2);
@@ -27,11 +27,14 @@ const gendiff = (filepath1, filepath2) => {
   // Получаем объект разницы между двумя объектами
   const diffObj = diff(obj1, obj2);
 
+  // Обработка опции format
+  const formatName = options.format || 'stylish';
+
   // Преобразуем объект разницы в строку в нужном формате
-  const result = formatDiff(diffObj);
+  const result = getFormatter(formatName)(diffObj);
 
   // Возвращаем строку с разницей между двумя объектами
-  return `${result}`;
+  return result;
 };
 
 export default gendiff;
