@@ -20,5 +20,4 @@ test('compares flat YAML/YML files correctly', () => {
     const expected = readFileSync(getFixturePath('result_yaml.txt'), 'utf-8').trim();
   
     expect(gendiff(filepath1, filepath2)).toEqual(expected);
-  });
-  
+});

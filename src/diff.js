@@ -6,7 +6,7 @@ const diff = (obj1, obj2) => {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
   // Собираем все ключи в один массив и сортируем его
-  const keys = _.uniq([...keys1, ...keys2]).sort();
+  const keys = _.union(keys1, keys2).sort();
 
   // Проходим по каждому ключу и проверяем, какой тип изменения произошел
   return keys.reduce((acc, key) => {
@@ -37,7 +37,7 @@ const diff = (obj1, obj2) => {
     }
 
     // Если значения совпадают, то никаких изменений не произошло
-    return { ...acc, [key]: {type: 'unchanged', oldValue: val1 } }
+    return { ...acc, [key]: {type: 'unchanged', value: val1 } }
   }, {});
 };
 
